@@ -48,4 +48,14 @@ public class Doctor {
     public void setPesel(String pesel) {
         this.pesel = pesel;
     }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", pesel='" + pesel + '\'' +
+                '}';
+    }
 }

@@ -5,9 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
-import pl.marcinblok.webapp.model.Doctor;
-
-import java.util.List;
+import pl.marcinblok.webapp.DoctorList;
 
 @Controller
 public class DoctorsController {
@@ -18,8 +16,8 @@ public class DoctorsController {
 
     @GetMapping("/doctors")
     public String allDoctors(Model model) {
-        List<Doctor> doctors = (List<Doctor>) restTemplate.getForObject("http://localhost:8080/doctors", Doctor.class);
-        model.addAttribute("doctors", doctors);
+        DoctorList doctors = restTemplate.getForObject("http://localhost:1234/doctors", DoctorList.class);
+        model.addAttribute("doctors", doctors.getDoctors());
         return "doctors";
     }
 }

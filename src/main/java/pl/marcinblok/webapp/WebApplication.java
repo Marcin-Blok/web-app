@@ -17,15 +17,7 @@ class WebApplication {
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
-/*
-    @Bean
-    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-        return args -> {
-            List<Doctor> doctors = (List<Doctor>) restTemplate.getForObject("http://localhost:8080/doctors", Doctor.class);
-            System.out.println(doctors);
-        };
-    }
- */
+
 
 }
 

@@ -1,5 +1,7 @@
 package pl.marcinblok.webapp.model;
 
+import java.util.List;
+
 public class Doctor {
 
 
@@ -7,14 +9,18 @@ public class Doctor {
     private String name;
     private String surname;
     private String pesel;
+    private List<Specialization> specialization;
 
     public Doctor() {
     }
 
-    public Doctor(String name, String surname, String pesel) {
+
+    public Doctor(String name, String surname, String pesel, List<Specialization> specialization) {
         this.name = name;
         this.surname = surname;
         this.pesel = pesel;
+        this.specialization = specialization;
+
     }
 
     public int getId() {
@@ -49,13 +55,11 @@ public class Doctor {
         this.pesel = pesel;
     }
 
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", pesel='" + pesel + '\'' +
-                '}';
+    public List<Specialization> getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(List<Specialization> specialization) {
+        this.specialization = specialization;
     }
 }

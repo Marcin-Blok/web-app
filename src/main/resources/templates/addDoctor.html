@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Form</title>
+</head>
+<body>
+<div style="text-align: center; vertical-align: middle;">
+<h2>Witam! Aby dodać lekarza, wprowadź dane zgodnie z poniższym formularzem.</h2>
+<form:form method="POST"
+           action="/addDoctor" modelAttribute="doctor">
+    <label for="name">Imię:</label><br>
+    <input type="text" id="name" path="name"><br>
+    <label for="surname">Nazwisko:</label><br>
+    <input type="text" id="surname" path="surname"><br>
+    <label for="pnumber">Pesel:</label><br>
+    <input type="text" id="pnumber" path="pesel"><br>
+    <label for="specialization">Specjalizacja:</label><br>
+    <input type="text" id="specialization" path="specialization"><br><br>
+
+    <input type="submit" value="Submit">
+</form:form>
+</div>
+</body>
+</html>
+
+

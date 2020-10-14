@@ -1,65 +1,24 @@
 package pl.marcinblok.webapp.model;
 
 import java.util.List;
+import java.util.Set;
 
 public class Doctor {
-
-
     private int id;
     private String name;
     private String surname;
     private String pesel;
-    private List<Specialization> specialization;
+    private List<Day> days;
+    private Set<Specialization> specializations;
+
 
     public Doctor() {
     }
 
-
-    public Doctor(String name, String surname, String pesel, List<Specialization> specialization) {
+    public Doctor(String name, String surname, String pesel, Set<Specialization> specializations) {
         this.name = name;
         this.surname = surname;
         this.pesel = pesel;
-        this.specialization = specialization;
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPesel() {
-        return pesel;
-    }
-
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
-    }
-
-    public List<Specialization> getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(List<Specialization> specialization) {
-        this.specialization = specialization;
+        this.specializations = specializations;
     }
 }

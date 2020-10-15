@@ -1,26 +1,25 @@
 package pl.marcinblok.webapp.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import pl.marcinblok.webapp.model.Doctor;
-import pl.marcinblok.webapp.model.DoctorRequest;
-import pl.marcinblok.webapp.model.Specialization;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class DoctorsController {
+
+    private static final Logger log = LoggerFactory.getLogger(DoctorsController.class);
 
     @Autowired
     private RestTemplate restTemplate;
@@ -28,11 +27,11 @@ public class DoctorsController {
 
     @GetMapping("/doctors")
     public String allDoctors(Model model) {
-        ResponseEntity<List<DoctorRequest>> doctorResponse =
+        ResponseEntity<List<Doctor>> doctorResponse =
                 restTemplate.exchange("http://localhost:8080/doctors",
-                        HttpMethod.GET, null, new ParameterizedTypeReference<List<DoctorRequest>>() {
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Doctor>>() {
                         });
-        List<DoctorRequest> doctors = doctorResponse.getBody();
+        List<Doctor> doctors = doctorResponse.getBody();
         model.addAttribute("doctors", doctors);
         return "doctors";
     }
@@ -42,21 +41,32 @@ public class DoctorsController {
         return "addDoctor";
     }
 
+//    @PostMapping("/addDoctor")
+//    public String addDoctorPost(@ModelAttribute("doctor") Doctor doctor) {
+//        List<Specialization> specializations = new ArrayList<>();
+//        specializations.add(new Specialization(specialization));
+//        HttpEntity<Doctor> request = new HttpEntity<>(new Doctor(name, surname, pnumber, specializations));
+//        Doctor doctor = restTemplate.postForObject("http://localhost:8080/doctors", request, Doctor.class);
+//
+//        return "redirect:doctors";
+//    }
 
     @PostMapping("/addDoctor")
-    public String addDoctorPost(@ModelAttribute("doctor") DoctorRequest doctorRequest) {
-        String name = doctorRequest.getName();
-        String surname = doctorRequest.getSurname();
-        String pesel = doctorRequest.getPesel();
-        String specialization = doctorRequest.getSpecialization();
+    public String addDoctorPost(@ModelAttribute("doctor")Doctor doctor) {
 
-        Set<Specialization> specializations = new HashSet<>();
-        specializations.add(new Specialization(specialization));
+        log.info("zapisuję doktora: "+doctor.toString());
 
-        Doctor doctor = new Doctor(name, surname, pesel, specializations);
-        HttpEntity<Doctor> requestToService = new HttpEntity<>(doctor);
-        restTemplate.postForObject("http://localhost:8080/doctors", requestToService, Doctor.class);
+
+        ResponseEntity<Doctor> response = restTemplate.exchange(
+                "http://localhost:8080/doctors", HttpMethod.POST, new HttpEntity<>(doctor), Doctor.class);
+
+        if(response.getStatusCode() != HttpStatus.OK){
+            // zostań na stronie i wyświetl co poszło nie tak.
+            log.info(response.getStatusCode().toString());
+        }
+
         return "redirect:doctors";
+
     }
 
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -9,19 +10,19 @@
 <body>
 <div style="text-align: center; vertical-align: middle;">
     <h2>Witam! Aby dodać lekarza, wprowadź dane zgodnie z poniższym formularzem.</h2>
-    <form th:action="@{/addDoctor}" method="post" th:object="${doctor}">
+    <form method="POST"
+          th:action="@{/addDoctor}">
         <label for="name">Imię:</label><br>
-        <input type="text" id="name" name="name"/><br>
+        <input type="text" id="name" name="name" value="Szymon"><br>
         <label for="surname">Nazwisko:</label><br>
-        <input type="text" id="surname" name="surname"/><br>
+        <input type="text" id="surname" name="surname" value="Leyk"><br>
         <label for="pnumber">Pesel:</label><br>
-        <input type="text" id="pnumber" name="pesel"/><br>
+        <input type="text" id="pnumber" name="pesel" value="123123123"><br>
         <label for="specialization">Specjalizacja:</label><br>
-        <input type="text" id="specialization" name="specialization"/><br>
+        <input type="text" id="specialization" name="specialization" value="Psycholog"><br><br>
 
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Submit">
     </form>
-    <br>
 </div>
 </body>
 </html>
